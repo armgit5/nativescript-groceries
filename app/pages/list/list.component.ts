@@ -16,6 +16,9 @@ export class ListComponent implements OnInit {
   isLoading = false;
   listLoaded = false;
 
+  addStatus = "Add";
+  deleteStatus = "X";
+
   @ViewChild("groceryTextField") groceryTextField: ElementRef;
 
   constructor(private groceryListService: GroceryListService) {}
@@ -38,6 +41,8 @@ export class ListComponent implements OnInit {
         return;
     }
 
+
+    this.addStatus = "adding...";
     // Dismiss the keyboard
     let textField = <TextField>this.groceryTextField.nativeElement;
     textField.dismissSoftInput();
@@ -47,18 +52,22 @@ export class ListComponent implements OnInit {
         groceryObject => {
             this.groceryList.unshift(groceryObject);
             this.grocery = "";
+            
         },
         () => {
             alert({
             message: "An error occurred while adding an item to your list.",
             okButtonText: "OK"
             });
-            this.grocery = "";
-        }
-        )
+            
+        },
+        () => this.addStatus = "Add"
+        );
     }
 
     delete(grocery: Grocery) {
+
+    this.deleteStatus = "deleting...";
 
     this.groceryListService.delete(grocery.id)
         .subscribe(
@@ -72,7 +81,8 @@ export class ListComponent implements OnInit {
             message: "An error occurred while deleteing an item to your list.",
             okButtonText: "OK"
             });
-        }
+        },
+        () => this.deleteStatus = "X"
         )
     }
 

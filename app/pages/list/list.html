@@ -1,13 +1,13 @@
-<ActionBar title="Groceries">
+<!--<ActionBar title="Groceries">
   <ActionItem text="Share" (tap)="share()" android.systemIcon="ic_menu_share_holo_dark" ios.systemIcon="9" ios.position="right"></ActionItem>
-</ActionBar>
+</ActionBar>-->
 
 <GridLayout rows="auto, *">
 
   <GridLayout row="0" columns="*, auto" class="add-bar">
     <TextField #groceryTextField [(ngModel)]="grocery" hint="Enter a grocery item" col="0"></TextField>
     <!--<Image src="res://add" (tap)="add()" col="1"></Image>-->
-    <Button [text]="'Add'" (tap)="add()" col="1"></Button>
+    <Button [text]="addStatus" (tap)="add()" col="1"></Button>
   </GridLayout>
 
   <ListView [items]="groceryList" row="1" columns="*, auto" class="small-spacing" [class.visible]="listLoaded">
@@ -16,7 +16,7 @@
             <GridLayout columns="*, auto">
                 <Label [text]="item.name" class="medium-spacing" col="0"></Label>
                 <!--<Image class="delete-container" src="res://delete" (tap)="delete(item)" col="1"></Image>-->
-                <Button [text]="'X'" (tap)="delete(item)" col="1"></Button>
+                <Button [text]="deleteStatus" (tap)="delete(item)" col="1"></Button>
             </GridLayout>
         </template>
     

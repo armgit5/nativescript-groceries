@@ -20,9 +20,11 @@ export class LoginComponent implements OnInit {
 
   user: User;
   isLoggingIn = true;
+  signInStatus = "Signin";
   @ViewChild("container") container: ElementRef;
   @ViewChild("email") email: ElementRef;
   @ViewChild("password") password: ElementRef;
+
 
   ngOnInit() {
     this.page.actionBarHidden = true;
@@ -62,10 +64,12 @@ export class LoginComponent implements OnInit {
     }
   }
   login() {
+    this.signInStatus = "Signing in...";
     this.userService.login(this.user)
     .subscribe(
       () => this.router.navigate(["/list"]),
-      (error) => alert("Unfortunately we could not find your account.")
+      (error) => alert("Unfortunately we could not find your account."),
+      () => this.signInStatus = "Signin"
     );
   }
 
